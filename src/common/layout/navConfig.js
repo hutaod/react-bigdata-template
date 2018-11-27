@@ -40,7 +40,8 @@ const routerConfig = [
             { name: '空数据处理', path:'/others/noData' },
             { name: 'Table转Excel', path:'/others/tableToExcel' },
             { name: 'MainCard', path:'/others/mainCard' },        
-            { name: '富文本编辑器', path:'/others/editor',hide:false }
+            { name: '富文本编辑器', path:'/others/editor',hide:false },
+            { name: 'PageOffice', path:'/others/pageOffice' },  
         ]
     },
     {
