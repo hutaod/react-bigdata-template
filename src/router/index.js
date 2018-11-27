@@ -1,12 +1,12 @@
 import React, {Component, Fragment} from "react";
-import { asyncComponent } from './utils';
+import { asyncComponent } from '../utils';
 import {Switch, Route, withRouter, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import Loading from './common/layout/loading';
+import Loading from '../common/layout/loading';
 
 // 获取到异步组件
-const MainFrame = asyncComponent(() => import('./pages/main'));
-const LoginPage = asyncComponent(() => import('./pages/login'));
+const MainFrame = asyncComponent(() => import('../pages/main'));
+const LoginPage = asyncComponent(() => import('../pages/login'));
 
 // 定义路由配置组建
 // 根据状态管理配置不同的路由
