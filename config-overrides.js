@@ -24,6 +24,7 @@ module.exports = function override(config, env) {
             },        
             performance:{
                 ...config.performance,
+                //关闭webpack对于单个文件过大的警告
                 hints: false
             },
             plugins:[
