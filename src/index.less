@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Microsoft YaHei", 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #CCCCCC;
+  //background-color: rgba(83, 126, 233, .5);
+  height: 40px;
+  outline-offset: -1px;
+  outline: 1px solid #CCCCCC;
+  -webkit-border-radius: 2px;
+  border: 1px solid #CCCCCC;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #6b6b6b;
+  //background-color: rgba(14, 68, 201, .5);
+  height: 40px;
+  -webkit-border-radius: 2px;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track-piece {
+  //background-color:#254188;
+  background: rgba(37, 65, 136, .1);
+  -webkit-border-radius: 0;
+}
+
+// 隐藏百度地图的脚标信息
+.anchorBL{
+  display: none !important;
+}
+
+
+// 面包屑公共样式
+.breadcrumb{
+  width: 100%;
+  height: 52px;
+  background: white;
+  padding-top: 15px !important;
+  padding-left: 20px !important;
+}
+
+// 内容边距公共样式
+.common-content{
+  padding: 20px;
+}
+
+// 标题公共样式
+.common-title{
+  font-size:16px;
+  color:rgba(0,0,0,0.85);
+  line-height:24px;
+  font-weight: bolder;
+  // 单位公共样式
+  span{
+    font-size:12px;
+    color:rgba(0,0,0,0.65);
+    line-height:20px;
+  }
+}
+
+// 文字居中
+.text-center{
+  text-align: center
+}
+
+// 文字居右
+.text-right{
+  text-align: right;
+}
+// 分页总数据条数显示位置
+.ant-pagination-total-text{
+  float: right !important;
+  margin-left: 15px;
+  line-height: 32px;
+}
+
+// 百度地图移动点上方lable样式
+.maplable{
+    border-collapse: collapse;
+    border-spacing: none;
+    border: 1px solid #ccc;
+    width: 180px;
+    font-size: 12px;
+
+}
+
+.maplable tr td:first-child{
+    width: 50px
+}
+
+.maplable tr td:last-child{
+    width: 130px
+}
+
+.maplable td{
+    border: 1px solid #ccc;
+    padding: 2px 3px;
+}
+
+//tooltip组件样式修改
+.common-tooltip{
+  .ant-tooltip-inner{
+      background-color: #309cff !important;
+  }
+  .ant-tooltip-arrow{
+      border-top-color: #309cff !important;
+  }
+}
+
+//设置table 文本溢出的问题
+table {
+    table-layout: fixed;
+}
+
+table td {
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+}
+
