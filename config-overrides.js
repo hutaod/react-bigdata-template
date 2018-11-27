@@ -4,7 +4,11 @@ const { injectBabelPlugin } = require('react-app-rewired');
 const rewireLess = require('react-app-rewire-less');
 //webpack中常用的node.js模块
 const path = require('path')
-
+// 终端输出进度条
+const WebpackBar = require('webpackbar');
+// 显示编译时间
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const chalk = require('chalk');
 module.exports = function override(config, env) {
     // 根据不同的env环境去设置不同的配置项
     if(env === 'production'){
@@ -18,6 +22,24 @@ module.exports = function override(config, env) {
                     '@': path.resolve(__dirname, 'src')
                 }
             },        
+            performance:{
+                ...config.performance,
+                hints: false
+            },
+            plugins:[
+                ...config.plugins,
+                // 显示打包时间
+                new ProgressBarPlugin({
+                    format:
+                        '  build [:bar] ' +
+                        chalk.green.bold(':percent') +
+                        ' (:elapsed seconds)'
+                }),        
+                // 进度条
+                new WebpackBar({
+                    name:'sunmnet'
+                })
+            ],
             // 提前自定义公共模块
             optimization: {            
                 splitChunks: {
@@ -58,7 +80,25 @@ module.exports = function override(config, env) {
                     //将绝对路劲根文件指向src
                     '@': path.resolve(__dirname, 'src')
                 }
-            }  
+            },
+            performance:{
+                ...config.performance,
+                hints: false
+            },
+            plugins:[
+                ...config.plugins,
+                // 显示打包时间
+                new ProgressBarPlugin({
+                    format:
+                        '  build [:bar] ' +
+                        chalk.green.bold(':percent') +
+                        ' (:elapsed seconds)'
+                }),        
+                // 进度条
+                new WebpackBar({
+                    name:'sunmnet'
+                })
+            ],
             
         }
     }
