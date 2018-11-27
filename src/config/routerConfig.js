@@ -17,7 +17,7 @@ const routerConfig = [
         path: "/dashboard",
         icon: <i className="iconfont icon-shujumofang" style={{marginRight: 8}}></i>,
         subMenus: [
-            { name: "分析页", path: "/dashboard/analysis" },
+            { name: "分析页", path: "/dashboard/analysis"},
             { name: "关系页", path: "/dashboard/relation" },
         ]
     },

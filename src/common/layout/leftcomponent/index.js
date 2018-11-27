@@ -2,7 +2,6 @@ import React from 'react';
 import { withRouter} from "react-router-dom";
 import { Menu } from 'antd';
 import './leftcomponent.css'
-// import { getLocal } from '../../../utils';
 import { routerConfig } from '../../../config'
 
 const SubMenu = Menu.SubMenu;
@@ -18,10 +17,13 @@ class LeftComponent extends React.Component{
     componentWillMount(){
         this.setMenu(routerConfig);
     }
+    
     setMenu = (menus) => {
+    	
         let current = this.props.location.pathname;
         let openKeys = [];
         let rootSubmenuKeys = [];
+        
         menus.forEach(item=>{
             if(item.subMenus){
                 item.subMenus.forEach(ele=>{
@@ -38,6 +40,7 @@ class LeftComponent extends React.Component{
             rootSubmenuKeys
         })
     }
+    
     selectClick = ({ key })=> {
         this.setState({
             current: key
@@ -57,6 +60,7 @@ class LeftComponent extends React.Component{
 			});
 		}
     }
+    
     render () {
         let MenuTree = routerConfig.filter(item=>!item.hide);
         return (
