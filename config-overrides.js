@@ -10,11 +10,40 @@ module.exports = function override(config, env) {
         ...config,
         resolve: {
             alias: {
-            	 //配置src目录的别名
-            	 //将绝对路劲根文件指向src
+                //配置src目录的别名
+                //将绝对路劲根文件指向src
                 '@': path.resolve(__dirname, 'src')
             }
-        }        
+        },
+        // 提前自定义公共模块
+        optimization: {
+            splitChunks: {
+                chunks: "all",
+                minSize: 20000,
+                //其他入口chunk引用的次数
+                minChunks: 1,
+                //默认使用name + hash生成文件名
+                name: true,
+                //使用自定义缓存组
+                cacheGroups: {
+                    //公共模块
+                    commons: {
+                        name: 'common',
+                        //缓存优先级设置
+                        priority: 10,
+                        //从入口chunk提取
+                        chunks: 'initial'
+                    },
+                    //提取第三方库
+                    vendors: {
+                        //符合条件的放入当前缓存组
+                        test: /[\\/]node_modules[\\/]/,
+                        name: "vendors",
+                        chunks: "all"
+                    },
+                }
+            }
+        }
     }
     // 注入antd按需加载，页面中不再需要引入antd样式文件
     config = injectBabelPlugin(['import', { libraryName: 'antd', style: true }], config);
