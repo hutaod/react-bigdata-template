@@ -59,8 +59,9 @@ class ModalCont extends Component {
         }
     }
     componentDidMount() {
-        getAction('/get_table').then(res=>{
-            // console.log(res)
+        getAction(
+        	'/get_table'
+        ).then(res=>{
             const data=res.obj
             this.setState({
                 data
