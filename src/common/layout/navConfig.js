@@ -32,6 +32,11 @@ const routerConfig = [
         ]
     },
     {
+        name: '动态table',
+        path: "/dynamicTable",
+        icon: <i className="iconfont icon-guiji" style={{marginRight: 8}}></i>
+    },
+    {
         name: '其他组件',
         path: "/others",
         icon: <Icon type="radar-chart" theme="outlined" />,
