@@ -290,7 +290,7 @@ class DynamicTree extends React.Component{
 								{
 									this.state.editStatus
 									?
-									<EditName hideEdit={this.editStatus} sureEdit={this.sureEdit} title={this.state.title} />
+									<EditName hideEdit={this.hideEdit} sureEdit={this.sureEdit} title={this.state.title} />
 									:
 									null
 								}

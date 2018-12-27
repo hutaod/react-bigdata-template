@@ -61,6 +61,7 @@ class DynamicTable extends React.Component{
 		if (nextProps.columns && nextProps.columns[0]) {
 			
 			let _columns = this.getColumns(nextProps.columns);
+			sessionStorage.setItem("colums", JSON.stringify(_columns))
 			
 			this.getData(nextProps.columns)
 			let arr = Object.keys(obj); 
