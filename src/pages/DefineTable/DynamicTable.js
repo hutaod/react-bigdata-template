@@ -1,5 +1,6 @@
 import React from 'react'
 import { Table, Card } from "antd"
+import Guid from './guide.png'
 
 let obj={
 	key: "0"
@@ -54,7 +55,6 @@ class DynamicTable extends React.Component{
 		return ary
 	}
 	
-	
 	componentWillReceiveProps (nextProps) {
 		obj={
 			key: "0"
@@ -100,7 +100,9 @@ class DynamicTable extends React.Component{
 						scroll={{ x: this.state.width, y: 600 }}
 					/>
 					:
-					null
+					<p style={{textAlign: "center",paddingTop: "50px"}}>
+						<img src={Guid} alt="" />
+					</p>
 				}
             </Card>
         )

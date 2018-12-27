@@ -169,12 +169,6 @@ class DynamicTree extends React.Component{
 				addStatus: false
 			})
 			
-			setTimeout(
-				() => {
-					console.log(this.state.treeData)
-				}
-			)
-			
     }
 		
 		// 更新treeData
@@ -198,7 +192,6 @@ class DynamicTree extends React.Component{
 				}
 			)
 			
-			console.log(ary)
 			return ary
 		}
 		
@@ -284,7 +277,9 @@ class DynamicTree extends React.Component{
 											{this.renderTreeNodes(this.state.treeData)}
 									</Tree>
 									:
-									<img src={AddPic} alt="点击添加节点（列）" style={{width: "100%", cursor: "pointer"}} onClick={this.addNode} />
+									<p style={{textAlign: "center", paddingTop: "50px"}}>
+										<img src={AddPic} alt="点击添加节点（列）" style={{width: "auto", cursor: "pointer"}} onClick={this.addNode} />,
+									</p>
 								}
 								
 								{
