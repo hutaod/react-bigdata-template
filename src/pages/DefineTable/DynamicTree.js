@@ -54,7 +54,7 @@ class DynamicTree extends React.Component{
 			})
     }
 		
-		// 产出节点（列）， 显示弹出框
+		// 删除节点（列）， 显示弹出框
 		deleteNode = () => {
 			if (this.state.selectedKeys && this.state.selectedKeys[0]) {
 				this.setState({
@@ -125,7 +125,7 @@ class DynamicTree extends React.Component{
 						...this.state.children,
 						{
 							title: newTreeNodeName,
-							key: this.state.key + this.state.children.length + ""
+							key: this.state.key + "-" + this.state.children.length
 						}
 					]
 				} else { // 不存在子节点
@@ -148,7 +148,7 @@ class DynamicTree extends React.Component{
 					treeData: newData,
 					children:newNode.children
 				}, ()=> {
-					this.props.getColumns(this.state.treeData)
+					this.props.getColumns(JSON.parse(JSON.stringify(this.state.treeData)))
 				})
 				
 			} else { // 无选中节点，直接添加根节点
@@ -157,11 +157,11 @@ class DynamicTree extends React.Component{
 						...this.state.treeData,
 						{
 							title: newTreeNodeName,
-							key: this.state.treeData.length + ""
+							key: "0-" + this.state.treeData.length
 						}
 					]
 				}, ()=> {
-					this.props.getColumns(this.state.treeData)
+					this.props.getColumns(JSON.parse(JSON.stringify(this.state.treeData)))
 				})
 			}
 			
@@ -169,20 +169,36 @@ class DynamicTree extends React.Component{
 				addStatus: false
 			})
 			
+			setTimeout(
+				() => {
+					console.log(this.state.treeData)
+				}
+			)
+			
     }
 		
 		// 更新treeData
 		deleteNewData = ary => {
+			
 			ary.forEach((item, index) => {
 				if (item.key === this.state.key ) {
-					ary.splice(index,1)
-					return
+					ary.splice(index,1);
 				} else {
 					if (item.children && item.children[0]) {
 						item.children = this.deleteNewData(item.children)
 					}
 				}
 			})
+			
+			ary.forEach(
+				(item, index) => {
+					let arr = item.key.split("-");
+					arr[arr.length - 1] = index;
+					ary[index].key=arr.join("-");
+				}
+			)
+			
+			console.log(ary)
 			return ary
 		}
 		
@@ -197,7 +213,7 @@ class DynamicTree extends React.Component{
 				selectedKeys: [],
 				deleteStatus: false
 			}, ()=> {
-					this.props.getColumns(this.state.treeData)
+					this.props.getColumns(JSON.parse(JSON.stringify(this.state.treeData)))
 				})
 		}
 		
@@ -224,7 +240,7 @@ class DynamicTree extends React.Component{
 				title,
 				editStatus: false
 			}, ()=> {
-					this.props.getColumns(this.state.treeData)
+					this.props.getColumns(JSON.parse(JSON.stringify(this.state.treeData)))
 				})
 		}
 

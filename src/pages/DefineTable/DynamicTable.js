@@ -54,6 +54,7 @@ class DynamicTable extends React.Component{
 		return ary
 	}
 	
+	
 	componentWillReceiveProps (nextProps) {
 		obj={
 			key: "0"
