@@ -12,27 +12,27 @@ class DynamicTree extends React.Component{
         super (props);
         this.state={
             treeData: [],
-						selectedKeys: [],
+			selectedKeys: [],
             key: "",
-						title: "",
-						children: null,
-						addStatus: false, // 新增节点（列）的弹出框， 
-						deleteStatus: false, // 删除节点弹出框
-						editStatus: false // 编辑节点（列）名称弹出框
+			title: "",
+			children: null,
+			addStatus: false, // 新增节点（列）的弹出框， 
+			deleteStatus: false, // 删除节点弹出框
+			editStatus: false // 编辑节点（列）名称弹出框
         }
     }
     
 		// 树形结构选中事件
     onSelect = (selectedKeys, info) => {
-			let _children = info.node.props.dataRef ? info.node.props.dataRef.children : null;
-			let _title = info.node.props.title;
-			let _key = selectedKeys[0];
-			this.setState({ 
-					selectedKeys,
-					key: _key,
-					title: _title,
-					children: _children,
-			});
+		let _children = info.node.props.dataRef ? info.node.props.dataRef.children : null;
+		let _title = info.node.props.title;
+		let _key = selectedKeys[0];
+		this.setState({ 
+				selectedKeys,
+				key: _key,
+				title: _title,
+				children: _children,
+		});
     }
     
 		// 树形结构遍历
@@ -49,125 +49,125 @@ class DynamicTree extends React.Component{
 		
 		// 新增节点（列）， 显示弹出框
     addNode = () => {
-			this.setState({
-				addStatus: true
-			})
+		this.setState({
+			addStatus: true
+		})
     }
 		
-		// 删除节点（列）， 显示弹出框
-		deleteNode = () => {
-			if (this.state.selectedKeys && this.state.selectedKeys[0]) {
-				this.setState({
-					deleteStatus: true
-				})
+	// 删除节点（列）， 显示弹出框
+	deleteNode = () => {
+		if (this.state.selectedKeys && this.state.selectedKeys[0]) {
+			this.setState({
+				deleteStatus: true
+			})
+		} else {
+			message.warn("请点击选择要删除的节点（列）！！！")
+		}
+	}
+		
+	// 编辑节点， 显示弹出框
+	editNode = () => {
+		if (this.state.selectedKeys && this.state.selectedKeys[0]) {
+			this.setState({
+				editStatus: true
+			})
+		} else {
+			message.warn("请点击选择要编辑的节点（列）！！！")
+		}
+	}
+		
+	// 隐藏“新增节点（列）弹出框”
+	hideAddModal=()=>{
+		this.setState({
+			addStatus: false
+		})
+	}
+	
+	// 隐藏“删除节点弹出框”
+	hideDeleteWarning= () => {
+		this.setState({
+			deleteStatus: false
+		})
+	}
+		
+	// 隐藏“编辑节点弹出框”
+	hideEdit= () => {
+		this.setState({
+			editStatus: false
+		})
+	}
+	
+	// 更新treeData
+	addNewData = (ary, newNode) => {
+		let newARY = ary.map((item) => {
+			if (item.key === this.state.key ) {
+				item = newNode
 			} else {
-				message.warn("请点击选择要删除的节点（列）！！！")
-			}
-		}
-		
-		// 编辑节点， 显示弹出框
-		editNode = () => {
-			if (this.state.selectedKeys && this.state.selectedKeys[0]) {
-				this.setState({
-					editStatus: true
-				})
-			} else {
-				message.warn("请点击选择要编辑的节点（列）！！！")
-			}
-		}
-		
-		// 隐藏“新增节点（列）弹出框”
-		hideAddModal=()=>{
-			this.setState({
-				addStatus: false
-			})
-		}
-		
-		// 隐藏“删除节点弹出框”
-		hideDeleteWarning= () => {
-			this.setState({
-				deleteStatus: false
-			})
-		}
-		
-		// 隐藏“编辑节点弹出框”
-		hideEdit= () => {
-			this.setState({
-				editStatus: false
-			})
-		}
-		
-		// 更新treeData
-		addNewData = (ary, newNode) => {
-			let newARY = ary.map((item) => {
-				if (item.key === this.state.key ) {
-					item = newNode
-				} else {
-					if (item.children && item.children[0]) {
-						item.children = this.addNewData(item.children, newNode)
-					}
+				if (item.children && item.children[0]) {
+					item.children = this.addNewData(item.children, newNode)
 				}
-				return item
-			})
-			return newARY
-		}
+			}
+			return item
+		})
+		return newARY
+	}
 		
 		
 		// “新增节点（列）弹出框”， 确定按钮的事件
     sureAdd = (newTreeNodeName) => { // newTreeNodeName 为弹出框中输入的名称
 		
-			if (this.state.key) { // 当前存在选中的节点， 添加子节点
+		if (this.state.key) { // 当前存在选中的节点， 添加子节点
+		
+			let _children;
 			
-				let _children;
-				
-				if (this.state.children && this.state.children[0]) { // 已经存在子节点
-					_children = [
-						...this.state.children,
-						{
-							title: newTreeNodeName,
-							key: this.state.key + "-" + this.state.children.length
-						}
-					]
-				} else { // 不存在子节点
-					_children = [
-						{
-							title: newTreeNodeName,
-							key: this.state.key + "-0"
-						}
-					]
-				}
-				
-				let newNode = {
-					title: this.state.title,
-					key: this.state.key,
-					children: _children
-				};
-				
-				let newData = this.addNewData(this.state.treeData, newNode)
-				this.setState({
-					treeData: newData,
-					children:newNode.children
-				}, ()=> {
-					this.props.getColumns(JSON.parse(JSON.stringify(this.state.treeData)))
-				})
-				
-			} else { // 无选中节点，直接添加根节点
-				this.setState({
-					treeData: [
-						...this.state.treeData,
-						{
-							title: newTreeNodeName,
-							key: "0-" + this.state.treeData.length
-						}
-					]
-				}, ()=> {
-					this.props.getColumns(JSON.parse(JSON.stringify(this.state.treeData)))
-				})
+			if (this.state.children && this.state.children[0]) { // 已经存在子节点
+				_children = [
+					...this.state.children,
+					{
+						title: newTreeNodeName,
+						key: this.state.key + "_" + this.state.children.length
+					}
+				]
+			} else { // 不存在子节点
+				_children = [
+					{
+						title: newTreeNodeName,
+						key: this.state.key + "_0"
+					}
+				]
 			}
 			
+			let newNode = {
+				title: this.state.title,
+				key: this.state.key,
+				children: _children
+			};
+			
+			let newData = this.addNewData(this.state.treeData, newNode)
 			this.setState({
-				addStatus: false
+				treeData: newData,
+				children:newNode.children
+			}, ()=> {
+				this.props.getColumns(JSON.parse(JSON.stringify(this.state.treeData)))
 			})
+			
+		} else { // 无选中节点，直接添加根节点
+			this.setState({
+				treeData: [
+					...this.state.treeData,
+					{
+						title: newTreeNodeName,
+						key: "0_" + this.state.treeData.length
+					}
+				]
+			}, ()=> {
+				this.props.getColumns(JSON.parse(JSON.stringify(this.state.treeData)))
+			})
+		}
+		
+		this.setState({
+			addStatus: false
+		})
 			
     }
 		
@@ -197,7 +197,7 @@ class DynamicTree extends React.Component{
 		
 		// 确定删除节点
 		sureDelete = () => {
-			let newData = this.deleteNewData(this.state.treeData)
+			let newData = this.deleteNewData(this.state.treeData);
 			this.setState({
 				treeData: newData,
 				title: "",

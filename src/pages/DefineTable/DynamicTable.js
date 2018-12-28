@@ -46,7 +46,7 @@ class DynamicTable extends React.Component{
 	getColumns = (ary) => {
 		ary.forEach(
 			(item, index) => {
-				item.dataIndex = item.key;
+				item.dataIndex = "columns_" + item.key;
 				if (item.children && item.children[0]) {
 					item.children = this.getColumns(item.children)
 				}
@@ -78,6 +78,7 @@ class DynamicTable extends React.Component{
 			})
 			
 		} else {
+			sessionStorage.setItem("colums", null)
 			this.setState({
 				columns: [],
 				data: [],
