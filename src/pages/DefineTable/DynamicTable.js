@@ -36,7 +36,7 @@ class DynamicTable extends React.Component{
 				} else{
 					obj={
 						...obj,
-						[item.key]: "-"
+						[`columns_${item.key}`]: "-"
 					}
 				}
 			}
