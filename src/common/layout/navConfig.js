@@ -32,6 +32,11 @@ const routerConfig = [
         ]
     },
     {
+        name: '自定义表单',
+        path: "/DefineTable",
+        icon: <i className="iconfont icon-guiji" style={{marginRight: 8}}></i>
+    },
+    {
         name: '其他组件',
         path: "/others",
         icon: <Icon type="radar-chart" theme="outlined" />,
@@ -41,7 +46,7 @@ const routerConfig = [
             { name: 'Table转Excel', path:'/others/tableToExcel' },
             { name: 'MainCard', path:'/others/mainCard' },        
             { name: '富文本编辑器', path:'/others/editor',hide:false },
-            { name: 'PageOffice', path:'/others/pageOffice' },  
+//          { name: 'PageOffice', path:'/others/pageOffice' },  
         ]
     },
     {

@@ -5,6 +5,7 @@ import OtherChart from './OtherChart'
 import Progress from './Progress'
 import Biaxial from './Biaxial'
 import Test from './Test'
+import MyTree from './MyTree'
 
 const TabPane = Tabs.TabPane;
 
@@ -33,6 +34,9 @@ class Analysis extends Component {
                             </TabPane>
                             <TabPane tab="测试" key="5">
                                 <Test/>
+                            </TabPane>
+                            <TabPane tab="树形结构" key="6">
+                                <MyTree />
                             </TabPane>
                         </Tabs>
                     </Card>
