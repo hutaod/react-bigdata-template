@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect} from 'react-redux';
-import { loginAction } from './../../redux/actions/loginAction';
 // import { postAction } from './../../axios';
 import { setLocal } from './../../utils';
 import { Input, Icon, Button, message, Form } from 'antd';
@@ -60,10 +58,203 @@ class LoginPage extends React.Component{
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 const { username, password } = values;
-				this.props.handleLogin({username, password});
+				this.handleLogin({username, password});
             }
         });
-    }
+	}
+	handleLogin (data) {
+		// const curUrl = `/bigdata/user/login`;
+		const res = {
+			"msg": "登录成功",
+			"obj": {
+				"accountNonExpired": true,
+				"accountNonLocked": true,
+				"authorities": [],
+				"credentialsNonExpired": true,
+				"enabled": true,
+				"id": 1,
+				"menus": [
+					{
+						"iconSelectedUrl": "test",
+						"iconUrl": "test",
+						"id": 150,
+						"name": "综合画像",
+						"parentId": -1,
+						"seq": 11,
+						"subMenus": [
+							{
+								"iconSelectedUrl": "",
+								"iconUrl": "",
+								"id": 151,
+								"name": "群体画像",
+								"parentId": 150,
+								"seq": 12,
+								"subMenus": [],
+								"tags": [],
+								"url": "/mainframe/GroupPortrait"
+							},
+							{
+								"iconSelectedUrl": "",
+								"iconUrl": "",
+								"id": 152,
+								"name": "个人画像",
+								"parentId": 150,
+								"seq": 13,
+								"subMenus": [],
+								"tags": [],
+								"url": "/mainframe/personalportrait"
+							}
+						],
+						"tags": [],
+						"url": ""
+					},
+					{
+						"iconSelectedUrl": "n_ico3.png",
+						"iconUrl": "n_ico3.png",
+						"id": 2,
+						"name": "轨迹分析",
+						"parentId": -1,
+						"seq": 14,
+						"subMenus": [
+							{
+								"iconSelectedUrl": "",
+								"iconUrl": "",
+								"id": 4,
+								"name": "个人轨迹",
+								"parentId": 2,
+								"seq": 58,
+								"subMenus": [],
+								"tags": [],
+								"url": "/mainframe/personalpath"
+							},
+							{
+								"iconSelectedUrl": "",
+								"iconUrl": "",
+								"id": 153,
+								"name": "群体轨迹",
+								"parentId": 2,
+								"seq": 59,
+								"subMenus": [],
+								"tags": [],
+								"url": "/mainframe/grouppath"
+							}
+						],
+						"tags": [],
+						"url": ""
+					},
+					{
+						"iconSelectedUrl": "",
+						"iconUrl": "",
+						"id": 178,
+						"name": "综合预警",
+						"parentId": -1,
+						"seq": 256,
+						"subMenus": [],
+						"tags": [],
+						"url": "/mainframe/comprehensivewarning"
+					},
+					{
+						"iconSelectedUrl": "",
+						"iconUrl": "",
+						"id": 179,
+						"name": "系统设置",
+						"parentId": -1,
+						"seq": 257,
+						"subMenus": [
+							{
+								"iconSelectedUrl": "",
+								"iconUrl": "",
+								"id": 180,
+								"name": "预警设置",
+								"parentId": 179,
+								"seq": 387,
+								"subMenus": [],
+								"tags": [],
+								"url": "/mainframe/systemsetup/earlywarningsetting"
+							},
+							{
+								"iconSelectedUrl": "",
+								"iconUrl": "",
+								"id": 181,
+								"name": "行为轨迹设置",
+								"parentId": 179,
+								"seq": 388,
+								"subMenus": [],
+								"tags": [],
+								"url": "/mainframe/systemsetup/behaviortrajectory"
+							}
+						],
+						"tags": [],
+						"url": "/mainframe/systemsetup"
+					},
+					{
+						"iconSelectedUrl": "xitongguanli2.png",
+						"iconUrl": "xitongguanli.png",
+						"id": 10,
+						"name": "权限管理",
+						"parentId": -1,
+						"seq": 259,
+						"subMenus": [
+							{
+								"iconSelectedUrl": "",
+								"iconUrl": "",
+								"id": 25,
+								"name": "账户管理",
+								"parentId": 10,
+								"seq": 264,
+								"subMenus": [],
+								"tags": [],
+								"url": "/mainframe/accessmanage/account"
+							},
+							{
+								"iconSelectedUrl": "",
+								"iconUrl": "",
+								"id": 24,
+								"name": "菜单管理",
+								"parentId": 10,
+								"seq": 265,
+								"subMenus": [],
+								"tags": [],
+								"url": "/mainframe/accessmanage/menu"
+							},
+							{
+								"iconSelectedUrl": "",
+								"iconUrl": "",
+								"id": 26,
+								"name": "权限配置",
+								"parentId": 10,
+								"seq": 266,
+								"subMenus": [],
+								"tags": [],
+								"url": "/mainframe/accessmanage/authority"
+							}
+						],
+						"tags": [],
+						"url": ""
+					}
+				],
+				"name": "Administrator",
+				"sex": 1,
+				"userId": "",
+				"username": "admin"
+			},
+			"success": true
+		}
+
+		if (res.success) {
+			setLocal("userInfo", JSON.stringify(res.obj));
+			setLocal("loginStatus", true);	
+			this.props.history.push('/')		
+		} else {
+			message.error(res.obj)
+		}
+
+		// postAction(
+		// 	curUrl
+		// ).then (function (res) {
+			
+		// })
+	}
     render () {
 		const { getFieldDecorator } = this.props.form;
 		let username = this.props.form.getFieldValue('username');
@@ -116,204 +307,5 @@ class LoginPage extends React.Component{
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        handleLogin (data) {
-			// const curUrl = `/bigdata/user/login`;
-			const res = {
-				"msg": "登录成功",
-				"obj": {
-					"accountNonExpired": true,
-					"accountNonLocked": true,
-					"authorities": [],
-					"credentialsNonExpired": true,
-					"enabled": true,
-					"id": 1,
-					"menus": [
-						{
-							"iconSelectedUrl": "test",
-							"iconUrl": "test",
-							"id": 150,
-							"name": "综合画像",
-							"parentId": -1,
-							"seq": 11,
-							"subMenus": [
-								{
-									"iconSelectedUrl": "",
-									"iconUrl": "",
-									"id": 151,
-									"name": "群体画像",
-									"parentId": 150,
-									"seq": 12,
-									"subMenus": [],
-									"tags": [],
-									"url": "/mainframe/GroupPortrait"
-								},
-								{
-									"iconSelectedUrl": "",
-									"iconUrl": "",
-									"id": 152,
-									"name": "个人画像",
-									"parentId": 150,
-									"seq": 13,
-									"subMenus": [],
-									"tags": [],
-									"url": "/mainframe/personalportrait"
-								}
-							],
-							"tags": [],
-							"url": ""
-						},
-						{
-							"iconSelectedUrl": "n_ico3.png",
-							"iconUrl": "n_ico3.png",
-							"id": 2,
-							"name": "轨迹分析",
-							"parentId": -1,
-							"seq": 14,
-							"subMenus": [
-								{
-									"iconSelectedUrl": "",
-									"iconUrl": "",
-									"id": 4,
-									"name": "个人轨迹",
-									"parentId": 2,
-									"seq": 58,
-									"subMenus": [],
-									"tags": [],
-									"url": "/mainframe/personalpath"
-								},
-								{
-									"iconSelectedUrl": "",
-									"iconUrl": "",
-									"id": 153,
-									"name": "群体轨迹",
-									"parentId": 2,
-									"seq": 59,
-									"subMenus": [],
-									"tags": [],
-									"url": "/mainframe/grouppath"
-								}
-							],
-							"tags": [],
-							"url": ""
-						},
-						{
-							"iconSelectedUrl": "",
-							"iconUrl": "",
-							"id": 178,
-							"name": "综合预警",
-							"parentId": -1,
-							"seq": 256,
-							"subMenus": [],
-							"tags": [],
-							"url": "/mainframe/comprehensivewarning"
-						},
-						{
-							"iconSelectedUrl": "",
-							"iconUrl": "",
-							"id": 179,
-							"name": "系统设置",
-							"parentId": -1,
-							"seq": 257,
-							"subMenus": [
-								{
-									"iconSelectedUrl": "",
-									"iconUrl": "",
-									"id": 180,
-									"name": "预警设置",
-									"parentId": 179,
-									"seq": 387,
-									"subMenus": [],
-									"tags": [],
-									"url": "/mainframe/systemsetup/earlywarningsetting"
-								},
-								{
-									"iconSelectedUrl": "",
-									"iconUrl": "",
-									"id": 181,
-									"name": "行为轨迹设置",
-									"parentId": 179,
-									"seq": 388,
-									"subMenus": [],
-									"tags": [],
-									"url": "/mainframe/systemsetup/behaviortrajectory"
-								}
-							],
-							"tags": [],
-							"url": "/mainframe/systemsetup"
-						},
-						{
-							"iconSelectedUrl": "xitongguanli2.png",
-							"iconUrl": "xitongguanli.png",
-							"id": 10,
-							"name": "权限管理",
-							"parentId": -1,
-							"seq": 259,
-							"subMenus": [
-								{
-									"iconSelectedUrl": "",
-									"iconUrl": "",
-									"id": 25,
-									"name": "账户管理",
-									"parentId": 10,
-									"seq": 264,
-									"subMenus": [],
-									"tags": [],
-									"url": "/mainframe/accessmanage/account"
-								},
-								{
-									"iconSelectedUrl": "",
-									"iconUrl": "",
-									"id": 24,
-									"name": "菜单管理",
-									"parentId": 10,
-									"seq": 265,
-									"subMenus": [],
-									"tags": [],
-									"url": "/mainframe/accessmanage/menu"
-								},
-								{
-									"iconSelectedUrl": "",
-									"iconUrl": "",
-									"id": 26,
-									"name": "权限配置",
-									"parentId": 10,
-									"seq": 266,
-									"subMenus": [],
-									"tags": [],
-									"url": "/mainframe/accessmanage/authority"
-								}
-							],
-							"tags": [],
-							"url": ""
-						}
-					],
-					"name": "Administrator",
-					"sex": 1,
-					"userId": "",
-					"username": "admin"
-				},
-				"success": true
-			}
-
-			if (res.success) {
-				setLocal("userInfo", JSON.stringify(res.obj));
-				setLocal("loginStatus", true);
-				const action  = loginAction(true);
-				dispatch(action);
-			} else {
-				message.error(res.obj)
-			}
-
-            // postAction(
-            // 	curUrl
-            // ).then (function (res) {
-                
-            // })
-        }
-    }
-}
-
-export default connect(null, mapDispatchToProps)(Form.create()(LoginPage))
+export default Form.create()(LoginPage)
 

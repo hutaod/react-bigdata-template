@@ -146,7 +146,6 @@ const postAction = function (url, data={}, isShowloading, contentTpyeIndex=0) {
 	} else if (_contentTpye === contentTpyeArrs[0]){
 		_data = Qs.stringify(data)
 	}
-    console.log(_contentTpye)
     return ajax.post(url, _data, {
         headers: {
             'Content-Type': _contentTpye

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
 import { Popover, Icon } from 'antd';
 import './topcomponent.css';
 // import logo from './logo.png';
-import { clearLocal,  getLocal } from '../../../utils';
-import { loginAction } from '../../../redux/actions/loginAction'
-import { NavLink } from 'react-router-dom';
+import { getLocal } from '../../../utils';
+import { NavLink,withRouter } from 'react-router-dom';
 import ChangePassModal from "./ChangePassModal";
 
 class TopComponent extends Component{
@@ -42,11 +40,15 @@ class TopComponent extends Component{
             changePassShow: false,
         });
     }
+    logout=()=>{
+        localStorage.clear()
+        this.props.history.replace('/LoginPage')
+    }
     render () {
         const userName = JSON.parse(getLocal("userInfo")).name;
         const content = (<div>
             <p><span className='top-a-text' onClick={this.changePass}><Icon type="form" theme="outlined" style={{ marginRight: 5 }} />修改密码</span></p>
-            <p style={{ marginBottom: 0 }}><span className='top-a-text' onClick={this.props.logout}><Icon type="poweroff" theme="outlined" style={{ marginRight: 5 }} />退出登录</span></p>
+            <p style={{ marginBottom: 0 }}><span className='top-a-text' onClick={this.logout}><Icon type="poweroff" theme="outlined" style={{ marginRight: 5 }} />退出登录</span></p>
         </div>);
         return (
             <div className='topcomponent'>
@@ -73,14 +75,5 @@ class TopComponent extends Component{
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        logout () {
-        	clearLocal();
-            const action = loginAction(false);
-            dispatch(action);
-        }
-    }
-}
 
-export default connect(null, mapDispatchToProps)(TopComponent)
+export default withRouter(TopComponent)

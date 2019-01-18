@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from "react";
 import { asyncComponent } from '../utils';
 import {Switch, Route, withRouter, Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
 import Loading from '../common/layout/loading';
 
 // 获取到异步组件
@@ -12,7 +11,10 @@ const LoginPage = asyncComponent(() => import('../pages/login'));
 // 根据状态管理配置不同的路由
 class RouterPage extends Component {
     render() {
-        const {loginStatus} = this.props;
+        let loginStatus
+        if(localStorage.getItem('loginStatus')){
+            loginStatus=localStorage.getItem('loginStatus')
+        }
         if (loginStatus) {
             // 已登录状态下，进入首页面
             return (
@@ -40,11 +42,7 @@ class RouterPage extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        loginStatus: state.loginReducer.loginStatus
-    }
-}
+
 
 // 组建连接状态管理，并更新路由配置
-export default withRouter(connect(mapStateToProps, null)(RouterPage));
+export default withRouter(RouterPage);
